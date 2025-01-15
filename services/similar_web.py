@@ -117,18 +117,3 @@ def get_traffic_sources_overview(domain):
         return {"error": f"HTTP error occurred: {http_err}"}
     except Exception as err:
         return {"error": f"An error occurred: {err}"}
-
-
-# Exemple d'utilisation
-def main(domain: str = "google.com"):
-    data = get_website_data(domain)
-
-    if "error" in data:
-        print("Erreur :", data["error"])
-    else:
-        print("Données obtenues :")
-        print(data)
-
-
-if __name__ == "__main__":
-    main()
