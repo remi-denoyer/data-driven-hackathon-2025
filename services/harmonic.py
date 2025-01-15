@@ -114,4 +114,4 @@ def list_enrich_similar_companies_from_domain(website_url: str, size: int = 10):
             }
         )
 
-        return formatted_companies
+    return formatted_companies
