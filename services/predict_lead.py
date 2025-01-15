@@ -27,7 +27,10 @@ def get_company_data(domain):
     try:
         response = requests.get(url, headers=headers)
         response.raise_for_status()  # Check for HTTP errors
-        return response.json()  # Parse and return JSON data
+        if len(response.json()["data"]) > 0:
+            return response.json()["data"][0]  # Parse and return JSON data
+        else:
+            return {}
     except requests.exceptions.HTTPError as http_err:
         return f"HTTP error occurred: {http_err}"
     except Exception as err:
@@ -51,11 +54,12 @@ def get_job_openings(domain):
         "X-Api-Key": os.environ["PREDICT_LEAD_AUTH_KEY"],
         "X-Api-Token": os.environ["PREDICT_LEAD_AUTH_TOKEN"],
     }
+    params = {"limit": 1000, "active_only": True}
 
     try:
-        response = requests.get(url, headers=headers)
+        response = requests.get(url, headers=headers, params=params)
         response.raise_for_status()  # Check for HTTP errors
-        return response.json()  # Parse and return JSON data
+        return response.json()["data"]
     except requests.exceptions.HTTPError as http_err:
         return f"HTTP error occurred: {http_err}"
     except Exception as err:
@@ -83,7 +87,7 @@ def get_financing_events(domain):
     try:
         response = requests.get(url, headers=headers)
         response.raise_for_status()  # Check for HTTP errors
-        return response.json()  # Parse and return JSON data
+        return response.json()["data"]  # Parse and return JSON data
     except requests.exceptions.HTTPError as http_err:
         return f"HTTP error occurred: {http_err}"
     except Exception as err:
@@ -111,8 +115,36 @@ def get_connections(domain):
     try:
         response = requests.get(url, headers=headers)
         response.raise_for_status()  # Check for HTTP errors
-        return response.json()  # Parse and return JSON data
+        return response.json()["data"]
     except requests.exceptions.HTTPError as http_err:
         return f"HTTP error occurred: {http_err}"
     except Exception as err:
         return f"An error occurred: {err}"
+
+
+def get_predict_lead_data(domain):
+    # company_data = get_company_data(domain)
+    job_openings = get_job_openings(domain)
+    # financing_events = get_financing_events(domain)
+    connections = get_connections(domain)
+
+    # simple_connections = []
+    # for connection in connections:
+    #     # print(connection)
+    #     if connection["attributes"]["source_url"] is None:
+    #         continue
+    #     simple_connections.append(
+    #         {
+    #             "category": connection["attributes"]["category"],
+    #             "website": extract_domain(connection["attributes"]["source_url"]),
+    #         }
+    #     )
+
+    nb_job_openings = len(job_openings)
+
+    data = {
+        "nb_job_openings": nb_job_openings,
+        # "connections": simple_connections,
+    }
+
+    return data

@@ -20,10 +20,17 @@ def extract_domain(url):
     Returns:
         str: The extracted domain (e.g., "example.com").
     """
+    # Add a scheme if missing to ensure correct parsing
+    if not url.startswith(("http://", "https://")):
+        url = "http://" + url  # Add a default scheme
+
     parsed_url = urlparse(url)
-    domain = parsed_url.path
+    domain = parsed_url.netloc  # Correctly extract the domain
+
+    # Remove "www." if present
     if domain.startswith("www."):
-        domain = domain[4:]  # Remove "www." prefix if present
+        domain = domain[4:]
+
     return domain
 
 
@@ -117,3 +124,19 @@ def get_traffic_sources_overview(domain):
         return {"error": f"HTTP error occurred: {http_err}"}
     except Exception as err:
         return {"error": f"An error occurred: {err}"}
+
+
+def get_similar_web_data(domain: str):
+    website_data = get_website_data(domain)
+
+    data = {
+        "global_rank": website_data["global_rank"]["rank"],
+        "country_rank": website_data["country_rank"]["rank"],
+        "category_rank": website_data["category_rank"]["rank"],
+        "monthly_visits": website_data["engagments"]["visits"],
+        "total_country": website_data["total_countries"],
+        "direct_visits": website_data["traffic_sources"]["direct"]
+        * website_data["engagments"]["visits"],
+    }
+
+    return data
