@@ -25,12 +25,12 @@ def get_company_urn(website_url: str) -> str:
     return data["entity_urn"]
 
 
-def get_similar_companies(entity_urn: str, size: int = 10) -> List[str]:
+def get_similar_companies(entity_urn: str, size: int = 30) -> List[str]:
     """
     Get similar companies based on entity URN
     Args:
         entity_urn: The URN of the company
-        size: Number of similar companies to return (default: 10)
+        size: Number of similar companies to return (default: 30)
     Returns:
         List of company URNs
     """
@@ -60,7 +60,7 @@ def get_companies_batch(urns: List[str]) -> List[dict]:
     return response.json()
 
 
-def list_enrich_similar_companies_from_domain(website_url: str, size: int = 10):
+def list_enrich_similar_companies_from_domain(website_url: str, size: int = 30):
 
     # Get company URN
     company_urn = get_company_urn(website_url)
@@ -74,44 +74,38 @@ def list_enrich_similar_companies_from_domain(website_url: str, size: int = 10):
     # Extract only required fields for each company
     formatted_companies = []
     for company in company_details:
-
+        # Initialize simplified_traction_metrics
         simplified_traction_metrics = {}
-        for metric_name, metric_data in company["traction_metrics"].items():
-            if "latest_metric_value" in metric_data:
-                simplified_traction_metrics[metric_name] = metric_data[
-                    "latest_metric_value"
-                ]
+        if company.get("traction_metrics"):  # Check if traction_metrics exists
+            for metric_name, metric_data in company["traction_metrics"].items():
+                if metric_data and "latest_metric_value" in metric_data:
+                    simplified_traction_metrics[metric_name] = metric_data["latest_metric_value"]
 
-        formatted_companies.append(
-            {
-                "entity_urn": company["entity_urn"],
-                "id": company["id"],
-                "initialized_date": company["initialized_date"],
-                "website": company["website"]["domain"],
-                "customer_type": company["customer_type"],
-                "name": company["name"],
-                "description": company["description"],
-                "external_description": company["external_description"],
-                "founding_date": company["founding_date"]["date"],
-                "headcount": company["headcount"],
-                "ownership_status": company["ownership_status"],
-                "company_type": company["company_type"],
-                "stage": company["stage"],
-                "country": company["location"]["country"],
-                "funding": {
-                    "funding_stage": company["funding"]["funding_stage"],
-                    "funding_total": company["funding"]["funding_total"],
-                    "last_funding_at": company["funding"]["last_funding_at"],
-                    "last_funding_total": company["funding"]["last_funding_total"],
-                    "last_funding_type": company["funding"]["last_funding_type"],
-                    "num_funding_rounds": company["funding"]["num_funding_rounds"],
-                },
-                "highlights": company["highlights"],
-                "funding_attribute_null_status": company[
-                    "funding_attribute_null_status"
-                ],
-                "traction_metrics": simplified_traction_metrics,
-            }
-        )
+        formatted_companies.append({
+            "entity_urn": company.get("entity_urn"),
+            "id": company.get("id"),
+            "website": company.get("website", {}).get("domain"),
+            "customer_type": company.get("customer_type"),
+            "name": company.get("name"),
+            "description": company.get("description"),
+            "external_description": company.get("external_description"),
+            "founding_date": (company.get("founding_date") or {}).get("date"),
+            "headcount": company.get("headcount"),
+            "ownership_status": company.get("ownership_status"),
+            "company_type": company.get("company_type"),
+            "stage": company.get("stage"),
+            "country": company.get("location", {}).get("country") if company.get("location") else None,
+            "funding": {
+                "funding_stage": company.get("funding", {}).get("funding_stage"),
+                "funding_total": company.get("funding", {}).get("funding_total"),
+                "last_funding_at": company.get("funding", {}).get("last_funding_at"),
+                "last_funding_total": company.get("funding", {}).get("last_funding_total"),
+                "last_funding_type": company.get("funding", {}).get("last_funding_type"),
+                "num_funding_rounds": company.get("funding", {}).get("num_funding_rounds"),
+            },
+            "highlights": company.get("highlights"),
+            "funding_attribute_null_status": company.get("funding_attribute_null_status"),
+            "traction_metrics": simplified_traction_metrics,
+        })
 
     return formatted_companies
