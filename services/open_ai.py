@@ -1,7 +1,14 @@
 from openai import OpenAI
 from dotenv import load_dotenv
+from typing import List, Dict, Any
+from pydantic import BaseModel, Field
+from enum import Enum
+
+import os
+import json
 
 load_dotenv()
+OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 
 vc_specialist_prompt = """
 You are GPT-4, operating as a highly specialized
@@ -50,12 +57,29 @@ Now, please respond to any inquiries or discussion points from your
 audience—investment experts—to illustrate your mastery of the VC landscape.
 """
 
+class CompanyType(str, Enum):
+    INCUMBENT = "incumbent"
+    SCALEUP = "scaleup"
+    STARTUP = "startup"
+    NICHE_PLAYER = "niche_player"
+
+class CompanyAnalysis(BaseModel):
+    name: str
+    company_type: CompanyType
+    domain: str = Field(description="Company domain, return exactly as given in the input")
+    outlier: bool = Field(description="Does the company belong to the market you are analyzing?")
+    reasoning: str = Field(description="Explanation for the company type classification")
+
+class MarketAnalysis(BaseModel):
+    market_name: str = Field(description="Generated market category name")
+    market_description: str = Field(description="Brief description of the market")
+    companies: List[CompanyAnalysis]
 
 def generate_gpt_response(prompt):
     try:
-        client = OpenAI()
+        client = OpenAI(api_key=OPENAI_API_KEY)
         completion = client.chat.completions.create(
-            model="gpt-4",
+            model="gpt-4o",
             messages=[
                 {
                     "role": "system",
@@ -68,3 +92,61 @@ def generate_gpt_response(prompt):
     except Exception as e:
         print(f"Error in generating response: {e}")
         return None
+
+def generate_market_analysis(companies_data: List[Dict[str, Any]]) -> MarketAnalysis:
+    """
+    Analyze companies and generate market insights using GPT-4o
+
+    Args:
+        companies_data: List of company dictionaries containing company information
+
+    Returns:
+        MarketAnalysis object containing market name and company classifications
+    """
+
+    analysis_prompt = f"""
+    Analyze the following companies and provide insights in a structured format. Be aware, that
+    some of the companies might be false positives, not related to the market you are analyzing.
+    Companies data: {json.dumps(companies_data, indent=2)}
+
+    Please provide:
+    1. A specific market category name that best describes the space these companies operate in
+    2. A brief description of this market
+    3. For each company, evaluate whether they belong to the market you are analyzing
+    4. For each company, classify them as one of: incumbent, scaleup, startup, or niche_player
+    5. Include brief reasoning for each classification
+
+    Return the analysis in the following JSON format:
+    {{
+        "market_name": "string",
+        "market_description": "string",
+        "companies": [
+            {{
+                "name": "company name",
+                "company_type": "type",
+                "reasoning": "explanation"
+            }}
+        ]
+    }}
+    """
+
+    try:
+        client = OpenAI(api_key=OPENAI_API_KEY)
+        completion = client.beta.chat.completions.parse(
+            model="gpt-4o",
+            messages=[
+                {
+                    "role": "system",
+                    "content": vc_specialist_prompt,
+                },
+                {"role": "user", "content": analysis_prompt},
+            ],
+            response_format=MarketAnalysis
+        )
+
+        response_data = json.loads(completion.choices[0].message.content)
+        return MarketAnalysis.model_validate(response_data)
+
+    except Exception as e:
+        print(f"Error in generating market analysis: {e}")
+        raise
