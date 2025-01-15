@@ -93,6 +93,32 @@ def get_keywords(domain):
         return {"error": f"An error occurred: {err}"}
 
 
+def get_traffic_sources_overview(domain):
+    """
+    Fetch traffic sources overview share for a given domain using SimilarWeb API.
+
+    Args:
+        domain (str): The domain to analyze (e.g., "example.com").
+        api_key (str): Your SimilarWeb API key.
+
+    Returns:
+        dict: JSON data returned by the API or an error message.
+    """
+    endpoint = (
+        f"{BASE_URL}/website/{extract_domain(domain)}/traffic-sources/overview-share"
+    )
+    params = {"api_key": os.environ["SIMILAR_WEB_REST_API_KEY"]}
+
+    try:
+        response = requests.get(endpoint, params=params)
+        response.raise_for_status()  # Check for HTTP errors
+        return response.json()
+    except requests.exceptions.HTTPError as http_err:
+        return {"error": f"HTTP error occurred: {http_err}"}
+    except Exception as err:
+        return {"error": f"An error occurred: {err}"}
+
+
 # Exemple d'utilisation
 def main(domain: str = "google.com"):
     data = get_website_data(domain)
