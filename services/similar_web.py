@@ -21,7 +21,7 @@ def extract_domain(url):
         str: The extracted domain (e.g., "example.com").
     """
     parsed_url = urlparse(url)
-    domain = parsed_url.netloc
+    domain = parsed_url.path
     if domain.startswith("www."):
         domain = domain[4:]  # Remove "www." prefix if present
     return domain
@@ -69,10 +69,10 @@ def get_keywords(domain):
     """
     # Construire l'URL complète avec le point de terminaison et les paramètres
     endpoint = f"{BASE_URL_V4}/website-analysis/keywords/"
-    start_date = "2023-01"
-    end_date = datetime.now().strftime("%Y-%m")
+    start_date = "2024-12"
+    end_date = "2024-12"
     params = {
-        "url": extract_domain(domain),
+        "URL": extract_domain(domain),
         "country": "world",
         "start_date": start_date,
         "end_date": end_date,
@@ -93,16 +93,27 @@ def get_keywords(domain):
         return {"error": f"An error occurred: {err}"}
 
 
-# Exemple d'utilisation
-def main(domain: str = "google.com"):
-    data = get_website_data(domain)
+def get_traffic_sources_overview(domain):
+    """
+    Fetch traffic sources overview share for a given domain using SimilarWeb API.
 
-    if "error" in data:
-        print("Erreur :", data["error"])
-    else:
-        print("Données obtenues :")
-        print(data)
+    Args:
+        domain (str): The domain to analyze (e.g., "example.com").
+        api_key (str): Your SimilarWeb API key.
 
+    Returns:
+        dict: JSON data returned by the API or an error message.
+    """
+    endpoint = (
+        f"{BASE_URL}/website/{extract_domain(domain)}/traffic-sources/overview-share"
+    )
+    params = {"api_key": os.environ["SIMILAR_WEB_REST_API_KEY"]}
 
-if __name__ == "__main__":
-    main()
+    try:
+        response = requests.get(endpoint, params=params)
+        response.raise_for_status()  # Check for HTTP errors
+        return response.json()
+    except requests.exceptions.HTTPError as http_err:
+        return {"error": f"HTTP error occurred: {http_err}"}
+    except Exception as err:
+        return {"error": f"An error occurred: {err}"}
