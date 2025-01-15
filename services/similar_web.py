@@ -2,6 +2,7 @@ import requests
 import os
 from dotenv import load_dotenv
 from urllib.parse import urlparse
+from datetime import datetime
 
 load_dotenv()
 
@@ -68,9 +69,13 @@ def get_keywords(domain):
     """
     # Construire l'URL complète avec le point de terminaison et les paramètres
     endpoint = f"{BASE_URL_V4}/website-analysis/keywords/"
+    start_date = "2023-01"
+    end_date = datetime.now().strftime("%Y-%m")
     params = {
         "url": extract_domain(domain),
         "country": "world",
+        "start_date": start_date,
+        "end_date": end_date,
         "api_key": os.environ["SIMILAR_WEB_REST_API_KEY"],
     }
 
