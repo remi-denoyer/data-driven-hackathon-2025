@@ -21,7 +21,7 @@ def extract_domain(url):
         str: The extracted domain (e.g., "example.com").
     """
     parsed_url = urlparse(url)
-    domain = parsed_url.netloc
+    domain = parsed_url.path
     if domain.startswith("www."):
         domain = domain[4:]  # Remove "www." prefix if present
     return domain
@@ -69,10 +69,10 @@ def get_keywords(domain):
     """
     # Construire l'URL complète avec le point de terminaison et les paramètres
     endpoint = f"{BASE_URL_V4}/website-analysis/keywords/"
-    start_date = "2023-01"
-    end_date = datetime.now().strftime("%Y-%m")
+    start_date = "2024-12"
+    end_date = "2024-12"
     params = {
-        "url": extract_domain(domain),
+        "URL": extract_domain(domain),
         "country": "world",
         "start_date": start_date,
         "end_date": end_date,
