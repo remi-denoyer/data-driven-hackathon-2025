@@ -25,7 +25,7 @@ def get_company_urn(website_url: str) -> str:
     return data["entity_urn"]
 
 
-def get_similar_companies(self, entity_urn: str, size: int = 10) -> List[str]:
+def get_similar_companies(entity_urn: str, size: int = 10) -> List[str]:
     """
     Get similar companies based on entity URN
     Args:
@@ -41,7 +41,6 @@ def get_similar_companies(self, entity_urn: str, size: int = 10) -> List[str]:
     response.raise_for_status()
 
     data = response.json()
-    print(data)
     return data["results"]
 
 
