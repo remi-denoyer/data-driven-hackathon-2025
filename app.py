@@ -35,7 +35,7 @@ def display_map():
         data = load_data(domain=search_term)
         display_name = search_term
     else:
-        display_name = "Google"
+        display_name = "alan.com"
         data = load_data_example()
 
     # If a company is selected, find its details in the data
