@@ -72,9 +72,11 @@
     <div class="plot-container">{{ map_html|safe }}</div>
   </div>
   <script>
-    document.getElementById("metric-select").addEventListener("change", function () {
-      const metric = this.value;
-      window.location.href = `/?metric=${metric}`;
-    });
+  document.getElementById("metric-select").addEventListener("change", function () {
+    const metric = this.value;
+    const urlParams = new URLSearchParams(window.location.search);
+    urlParams.set("metric", metric);
+    window.location.href = `/?${urlParams.toString()}`;
+  });
   </script>
 </body>
