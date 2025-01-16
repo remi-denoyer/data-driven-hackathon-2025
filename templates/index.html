@@ -18,7 +18,7 @@
         class="logo"
       />
     </div>
-    <form class="d-flex" method="get" action="/">
+    <form class="d-flex" method="get" action="/" onsubmit="showLoader(); return true;">
       <input
         class="form-control me-2"
         type="search"
@@ -45,31 +45,42 @@
       <div class="section strengths">
         <h5>Strengths</h5>
         <ul>
-          <li>Analytical thinking</li>
-          <li>Problem-solving</li>
-          <li>Attention to detail</li>
+          {% if selected_company_data and selected_company_data.positive_analysis %}
+            <li>{{ selected_company_data.positive_analysis }}</li>
+          {% else %}
+            <li>No strengths data available for the selected company.</li>
+          {% endif %}
         </ul>
       </div>
 
       <div class="section weaknesses">
         <h5>Weaknesses</h5>
         <ul>
-          <li>Overcommitting</li>
-          <li>Impatience</li>
-          <li>Perfectionism</li>
+          {% if selected_company_data and selected_company_data.negative_analysis %}
+            <li>{{ selected_company_data.negative_analysis }}</li>
+          {% else %}
+            <li>No weaknesses data available for the selected company.</li>
+          {% endif %}
         </ul>
       </div>
 
       <div class="section icebreakers">
         <h5>Icebreaker Questions</h5>
         <ul>
-          <li>If you could travel anywhere, where would you go?</li>
-          <li>What’s your favorite hobby?</li>
-          <li>If you could have any superpower, what would it be?</li>
+          {% if selected_company_data and selected_company_data.company_question %}
+            <li>{{ selected_company_data.company_question }}</li>
+          {% else %}
+            <li>No icebreaker questions available for the selected company.</li>
+          {% endif %}
         </ul>
       </div>
     </div>
-    <div class="plot-container">{{ map_html|safe }}</div>
+    <div class="loader" id="loader" style="display: none;">
+      <div class="spinner-border text-light" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+    </div>
+    <div class="plot-container" id="plot-container">{{ map_html|safe }}</div>
   </div>
   <script>
   document.getElementById("metric-select").addEventListener("change", function () {
@@ -78,5 +89,40 @@
     urlParams.set("metric", metric);
     window.location.href = `/?${urlParams.toString()}`;
   });
+  </script>
+  <script>
+    function showLoader() {
+      document.getElementById("loader").style.display = "flex";
+      document.getElementById("plot-container").style.display = "none !important";
+    }
+  </script>
+  <script>
+    // document.addEventListener("DOMContentLoaded", function () {
+      const plotElement = document.querySelector(".plot-container");
+
+      // Add click event listener to the treemap
+      plotElement.on("plotly_treemapclick", function (event) {
+        console.log("clicked on plot")
+        const point = event.points[0];
+        const company = point.label; // Get the selected company's name
+        if (!company) return;
+
+        // Update query parameters without reloading the page
+        const url = new URL(window.location);
+        url.searchParams.set("selected_company", company);
+        window.history.replaceState({}, "", url);
+
+        console.log(`Query parameter updated: selected_company=${company}`);
+
+        // Optionally, make an API call or refresh data
+        fetch(`/update_data?company=${encodeURIComponent(company)}`)
+          .then(response => response.json())
+          .then(data => {
+            console.log("Updated data:", data);
+            // Optionally update the UI dynamically
+          })
+          .catch(error => console.error("Error fetching updated data:", error));
+      });
+    // });
   </script>
 </body>
