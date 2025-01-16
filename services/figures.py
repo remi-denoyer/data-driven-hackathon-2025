@@ -1,14 +1,14 @@
 import plotly.express as px
 
 
-def create_tree_map(data):
+def create_tree_map(data, selected_company):
     fig = px.treemap(
         data,
-        path=["category", "company"],  # Hierarchical levels: category > company
-        values="employees",  # Block size determined by headcount
-        color="growth",  # Color determined by growth
+        path=["segment", "name"],  # Hierarchical levels: category > name
+        values="headcount",  # Block size determined by headcount
+        color="headcount_growth",  # Color determined by growth
         color_continuous_scale=["green", "yellow", "red"],  # Custom green-to-red scale
-        title="Company Dynamism Treemap",
+        title=f"Competitive landscape of {selected_company}",
     )
 
     # Enhance layout and styling

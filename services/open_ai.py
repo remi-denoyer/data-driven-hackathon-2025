@@ -92,7 +92,7 @@ def generate_gpt_response(prompt):
     try:
         client = OpenAI(api_key=OPENAI_API_KEY)
         completion = client.chat.completions.create(
-            model="gpt-4o",
+            model="gpt-3.5-turbo",
             messages=[
                 {
                     "role": "system",

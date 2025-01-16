@@ -25,7 +25,7 @@ def load_data(domain="perplexity.ai"):
 @app.route("/")
 def display_map():
     data = load_data_example()
-    fig = create_tree_map(data)
+    fig = create_tree_map(data, "GOOGLE")  # TBD with selector
     map_html = fig.to_html(full_html=False, include_plotlyjs="cdn")
     return render_template("index.html", map_html=map_html)
 
