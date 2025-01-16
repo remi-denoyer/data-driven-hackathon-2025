@@ -55,6 +55,9 @@ def get_competitors_enriched(domain: str):
 
 
 def list_companies(domain: str):
+    # Clean input domain by removing protocols, www and anything after first slash
+    domain = domain.lower().replace('https://', '').replace('http://', '').replace('www.', '').split('/')[0]
+
     companies = get_competitors_enriched(domain)
     analysis = generate_market_analysis(
         field_selector(
