@@ -19,11 +19,13 @@ def create_tree_map(data, selected_company):
         title=f"Competitive landscape of {selected_company}",
     )
 
+
     # Enhance layout and styling
     fig.update_layout(
         font=dict(
-            family="Arial, sans-serif",  # Modern font
-            size=20,  # Larger font size
+            family="Lato, sans-serif",  # Modern font
+            size=15,  # Larger font size
+            color="white",
         ),
         title=dict(
             font=dict(size=28),  # Larger title font
@@ -40,10 +42,29 @@ def create_tree_map(data, selected_company):
     # Update traces for centered text and percentages
     fig.update_traces(
         textinfo="label+text",  # Display company name and custom text
-        texttemplate=("%{label}<br>" "Size: %{value}"),
-        textfont=dict(size=16),  # Larger text inside rectangles
+        texttemplate="%{label}<br>Size: %{value}",  # Format the text
+        textfont=dict(size=16),  # General text font size inside rectangles
         textposition="middle center",  # Center the text in each rectangle
         marker=dict(line=dict(color="black", width=1)),  # Subtle borders for contrast
     )
+
+    # Customize top-level category styling
+    fig.update_traces(
+        selector=dict(path_depth=0),  # Style only the top-level categories
+        textfont=dict(
+            size=18,  # Larger font size for categories
+            weight="bold",  # Bold font for categories
+        ),
+    )
+
+    # Optional: Customize sub-level styling (if needed)
+    fig.update_traces(
+        selector=dict(path_depth=1),  # Style subcategories
+        textfont=dict(
+            size=14,  # Slightly smaller font for subcategories
+            color="lightgray",
+        ),
+    )
+
 
     return fig
