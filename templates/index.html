@@ -1,8 +1,10 @@
 <head>
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+  <link
+    rel="stylesheet"
+    href="{{ url_for('static', filename='styles.css') }}"
+  />
 </head>
 <body>
-    <div class="plot-container">
-        {{ map_html|safe }}
-    </div>
+  <header>My header</header>
+  <div class="plot-container">{{ map_html|safe }}</div>
 </body>
