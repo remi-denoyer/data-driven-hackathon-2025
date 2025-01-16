@@ -62,7 +62,7 @@ def get_companies_batch(urns: List[str]) -> List[dict]:
     return response.json()
 
 
-def list_enrich_similar_companies_from_domain(website_url: str, size: int = 30):
+def list_enrich_similar_companies_from_domain(website_url: str, size: int = 15):
 
     # Get company URN
     company_urn = get_company_urn(website_url)

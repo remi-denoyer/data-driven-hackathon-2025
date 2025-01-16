@@ -142,7 +142,9 @@ header .d-flex {
   font-size: 0.9rem;
   font-family: "Lato", sans-serif;
 }
-
+.hidden {
+  display: none !important;
+}
 /* Plot Container Styling */
 .plot-container {
   width: 100%; /* Plot container takes remaining 80% of the width */
