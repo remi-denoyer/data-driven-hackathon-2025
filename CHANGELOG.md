@@ -1,5 +1,28 @@
 # Changelog
 
+## [0.3.0](https://github.com/remi-denoyer/data-driven-hackathon-2025/compare/v0.2.0...v0.3.0) (2025-01-16)
+
+
+### Features
+
+* Dynamic treemap based on side bar ([5e880b2](https://github.com/remi-denoyer/data-driven-hackathon-2025/commit/5e880b2d825b5ec36e4840a1347047c490a778fc))
+* Dynamic treemap based on side bar ([5e880b2](https://github.com/remi-denoyer/data-driven-hackathon-2025/commit/5e880b2d825b5ec36e4840a1347047c490a778fc))
+* Dynamic treemap based on side bar ([0f9f52e](https://github.com/remi-denoyer/data-driven-hackathon-2025/commit/0f9f52e53bf46f8ca80a62b5d67e299e7aca0e09))
+* improve design, logo and sidebar with questions ([d47cb18](https://github.com/remi-denoyer/data-driven-hackathon-2025/commit/d47cb18398790077f79f008c970d0c065dfce60f))
+* make search work ([a8e79fd](https://github.com/remi-denoyer/data-driven-hackathon-2025/commit/a8e79fdcca35b45be958f1f81edf04b2be7bcdf9))
+* New colorimetry ([788a4b9](https://github.com/remi-denoyer/data-driven-hackathon-2025/commit/788a4b926bc89867a148291641d6dace3db09f63))
+* New colorimetry ([f98526e](https://github.com/remi-denoyer/data-driven-hackathon-2025/commit/f98526eabf7d4a0b1478bc29c510b3749b5c9cd3))
+
+
+### Bug Fixes
+
+* design ([a80dc93](https://github.com/remi-denoyer/data-driven-hackathon-2025/commit/a80dc93444ae533929e1ba379b43021971737e2a))
+* extensive README.md file ([d8ff649](https://github.com/remi-denoyer/data-driven-hackathon-2025/commit/d8ff6495214328d832df0b597886c4be021a77c9))
+* original company is never removed from result set ([e708289](https://github.com/remi-denoyer/data-driven-hackathon-2025/commit/e7082892952fbec1393c8fd5b7e92203842ab547))
+* original company is never removed from result set ([e708289](https://github.com/remi-denoyer/data-driven-hackathon-2025/commit/e7082892952fbec1393c8fd5b7e92203842ab547))
+* original company is never removed from result set ([52504d9](https://github.com/remi-denoyer/data-driven-hackathon-2025/commit/52504d9bd48961ffc0e59162dbcd920d2051c89e))
+* readme fact check ([dd01075](https://github.com/remi-denoyer/data-driven-hackathon-2025/commit/dd01075f2cc9d838684be1bd4ee91ed1c49838e5))
+
 ## [0.2.0](https://github.com/remi-denoyer/data-driven-hackathon-2025/compare/v0.1.0...v0.2.0) (2025-01-16)
 
 
