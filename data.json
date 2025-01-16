@@ -1,0 +1,10 @@
+[
+    {"category": "Technology", "company": "TechCorp", "employees": 500, "growth": 0.15},
+    {"category": "Technology", "company": "CodeLabs", "employees": 300, "growth": -0.05},
+    {"category": "Healthcare", "company": "MediLife", "employees": 400, "growth": 0.25},
+    {"category": "Healthcare", "company": "BioHealth", "employees": 200, "growth": -0.10},
+    {"category": "Finance", "company": "FinTrust", "employees": 350, "growth": 0.05},
+    {"category": "Finance", "company": "SafeBank", "employees": 150, "growth": 0.10},
+    {"category": "Environment", "company": "GreenTech", "employees": 450, "growth": -0.20},
+    {"category": "Environment", "company": "EcoWorld", "employees": 250, "growth": 0.30}
+]

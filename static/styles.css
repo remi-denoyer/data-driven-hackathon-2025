@@ -1,0 +1,12 @@
+body {
+    background-color: black;
+    color: white;
+    font-family: Arial, sans-serif;
+}
+.plot-container {
+    margin: auto;
+    width: 80%;
+}
+.plotly-graph {
+    border-radius: 8px;
+}
