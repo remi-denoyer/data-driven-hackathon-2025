@@ -1,29 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Welcome to the homepage of our web application.">
-    <title>Welcome to My App</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 </head>
 <body>
-    <header>
-        <nav>
-            <ul>
-                <li><a href="/">Home</a></li>
-                <li><a href="/privacy-policy">Privacy policy</a></li>
-                <li><a href="/terms-of-service">Terms of service</a></li>
-            </ul>
-        </nav>
-    </header>
-
-    <main>
-        <h1>Welcome to My App</h1>
-        <p>This is the homepage of our amazing application. Use the navigation bar to explore more features.</p>
-    </main>
-
-    <footer>
-        <p>&copy; 2025 My App. All rights reserved.</p>
-    </footer>
+    <div class="plot-container">
+        {{ map_html|safe }}
+    </div>
 </body>
-</html>
