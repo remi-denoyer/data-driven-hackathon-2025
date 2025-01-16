@@ -56,6 +56,9 @@ def get_competitors_enriched(domain: str):
 
 def list_companies(domain: str):
     print(f"Looking for company competitive landscape of {domain}")
+    # Clean input domain by removing protocols, www and anything after first slash
+    domain = domain.lower().replace('https://', '').replace('http://', '').replace('www.', '').split('/')[0]
+
     companies = get_competitors_enriched(domain)
     print(f"got competitors")
     analysis = generate_market_analysis(
@@ -86,13 +89,13 @@ def list_companies(domain: str):
     companies_dict = {company["website"]: company for company in companies}
     analysis_dict = {company["website"]: company for company in analysis["companies"]}
 
-    # Merge data for matching domains, excluding outliers
+    # Merge data for matching domains, excluding outliers except input domain
     for website in set(companies_dict.keys()) | set(analysis_dict.keys()):
         company_data = companies_dict.get(website, {})
         analysis_data = analysis_dict.get(website, {})
 
-        # Skip if company is marked as outlier
-        if analysis_data.get("outlier"):
+        # Skip if company is marked as outlier and is not the input domain
+        if analysis_data.get("outlier") and website != domain:
             continue
 
         merged = {**company_data, **analysis_data}
