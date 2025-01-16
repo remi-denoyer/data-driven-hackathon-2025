@@ -3,13 +3,44 @@ html,
 body {
   background-color: rgb(39, 41, 48); /* Dark background for a sleek look */
   color: #ffffff; /* White text for good contrast */
-  font-family: "Arial", sans-serif; /* Clean, sans-serif font */
   margin: 0; /* Remove default margins */
   padding: 0; /* Remove default paddings */
   height: 100%; /* Ensure full height for body and html */
   overflow: hidden; /* Disable scrolling */
   display: flex; /* Use flexbox for layout */
-  flex-direction: column; /* Stack elements vertically */
+  flex-direction: column; /* Stack header and main content vertically */
+  font-family: "Lato", sans-serif;
+}
+
+/* General Font Styling */
+body {
+  font-family: "Lato", sans-serif;
+}
+
+/* Header Font Styling */
+header,
+.sidebar {
+  font-family: "Lato", sans-serif; /* Apply 'Times New Roman' to the header */
+  font-weight: 700; /* Bold font for emphasis */
+}
+
+/* Other Elements (Optional) */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Lato", sans-serif;
+  font-weight: 700; /* Bold for headings */
+}
+
+p,
+input,
+button,
+select {
+  font-family: "Lato", sans-serif;
+  font-weight: 400; /* Regular font weight */
 }
 
 /* Header Styling */
@@ -17,28 +48,56 @@ header {
   background-color: rgba(55, 58, 69, 0.95); /* Slight transparency for depth */
   color: #ffffff; /* Text color */
   text-align: center; /* Center-align header content */
-  font-family: "Arial", sans-serif; /* Match the font style with body */
   font-size: 1.5rem; /* Slightly larger font size for prominence */
   font-weight: bold; /* Bold text for emphasis */
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
-  height: 10vh; /* Header takes 20% of viewport height */
+  height: 10vh; /* Header takes 10% of viewport height */
   display: flex; /* Use flexbox for centering content */
   align-items: center; /* Center content vertically */
-  justify-content: center; /* Center content horizontally */
+  justify-content: space-between; /* Space out header content */
+  padding: 0 20px; /* Add some padding for the content inside */
+  box-sizing: border-box; /* Include padding in height */
+}
+
+/* Main Content Styling */
+.container {
+  display: flex; /* Use flexbox for a two-column layout */
+  height: 90vh; /* Remaining height after header */
+  width: 100%; /* Full width */
+  box-sizing: border-box; /* Include padding/borders in dimensions */
+  margin: 0px !important;
+  padding: 0px !important;
+  max-width: 100% !important;
+  border-radius: 0px !important;
+}
+
+/* Sidebar Styling */
+.sidebar {
+  width: 20%; /* Sidebar takes 20% of the width */
+  background-color: rgba(55, 58, 69, 0.95); /* Match header’s background */
+  padding: 20px; /* Add padding inside the sidebar */
+  box-shadow: 2px 0 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  overflow-y: auto; /* Enable vertical scrolling if content overflows */
+  box-sizing: border-box; /* Include padding in width */
+}
+
+.sidebar select {
+  width: 100%; /* Make select fields take full width */
+  margin-top: 20px; /* Add spacing between elements */
 }
 
 /* Plot Container Styling */
 .plot-container {
-  height: 90vh; /* Take up 80% of viewport height */
-  margin: 0 auto; /* Center horizontally */
-  width: 100%; /* Constrain width to 80% of the screen */
-  max-width: 1200px; /* Add a max width for larger screens */
-  background-color: rgb(39, 41, 48); /* Match the header’s background */
-  border-radius: 8px; /* Rounded corners for a modern look */
+  width: 100%; /* Plot container takes remaining 80% of the width */
+  height: 100%; /* Full height of the container */
+  background-color: rgb(39, 41, 48); /* Match the sidebar’s background */
+  border-radius: 0px; /* Rounded corners for a modern look */
   overflow: hidden; /* Prevent overflow from breaking the design */
   display: flex; /* Flexbox to center content */
   align-items: center; /* Center content vertically */
   justify-content: center; /* Center content horizontally */
+  padding: 0px; /* Add padding inside the container */
+  box-sizing: border-box; /* Include padding in dimensions */
 }
 
 /* Plotly Graph Styling */
