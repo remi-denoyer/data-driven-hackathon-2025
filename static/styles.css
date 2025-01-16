@@ -170,3 +170,33 @@ header .d-flex {
 .modebar-group {
   display: none !important; /* Hide modebar for cleaner look */
 }
+
+/* Existing style overrides */
+.loader {
+  display: none; /* Hidden by default */
+  position: absolute; /* Or fixed if you prefer */
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 9999; /* Above everything */
+  align-items: center;
+  justify-content: center;
+}
+
+/* Spinner color or size overrides */
+.spinner-border {
+  width: 3rem;
+  height: 3rem;
+  border-width: 0.3rem;
+  animation: spin 1s linear infinite; /* Add spin animation */
+}
+
+/* Simple keyframes to rotate the spinner */
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
