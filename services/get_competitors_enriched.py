@@ -1,7 +1,9 @@
-from harmonic import list_enrich_similar_companies_from_domain
-from similar_web import get_similar_web_data
-from predict_lead import get_predict_lead_data
+from services.harmonic import list_enrich_similar_companies_from_domain
+from services.similar_web import get_similar_web_data
+from services.predict_lead import get_predict_lead_data
+from dotenv import load_dotenv
 
+load_dotenv()
 
 def get_competitors_enriched(domain: str):
     """
