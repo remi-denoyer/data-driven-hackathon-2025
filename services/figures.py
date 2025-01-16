@@ -1,11 +1,15 @@
 import plotly.express as px
 
 
-def create_tree_map(data, selected_company):
+def create_tree_map(data, selected_company, metric):
+    # Filter out entries where the selected metric is <= 0
+    data = [entry for entry in data if entry.get(metric, 0) > 0]
+
+    # Create the tree map
     fig = px.treemap(
         data,
         path=["segment", "name"],  # Hierarchical levels: segment > name
-        values="headcount",  # Block size determined by headcount
+        values=metric,  # Dynamically use the selected metric for block sizes
         color="headcount_growth",  # Color determined by headcount growth
         color_continuous_scale=[
             (0.0, "rgb(226, 72, 66)"),  # Red for low (negative max)
@@ -18,7 +22,6 @@ def create_tree_map(data, selected_company):
         color_continuous_midpoint=0,  # Center the scale at 0
         title=f"Competitive landscape of {selected_company}",
     )
-
 
     # Enhance layout and styling
     fig.update_layout(
@@ -69,6 +72,5 @@ def create_tree_map(data, selected_company):
             color="lightgray",
         ),
     )
-
 
     return fig
