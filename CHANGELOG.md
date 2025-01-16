@@ -1,5 +1,25 @@
 # Changelog
 
+## [0.2.0](https://github.com/remi-denoyer/data-driven-hackathon-2025/compare/v0.1.0...v0.2.0) (2025-01-16)
+
+
+### Features
+
+* Connect all services to controller ([da185d9](https://github.com/remi-denoyer/data-driven-hackathon-2025/commit/da185d9c901eb48ce6838c7001fb6b75ce6fc115))
+* design ([37161ad](https://github.com/remi-denoyer/data-driven-hackathon-2025/commit/37161add4274e5ab871e31327eb6f50be9ed762f))
+
+
+### Bug Fixes
+
+* Add new fields to tree map ([005c765](https://github.com/remi-denoyer/data-driven-hackathon-2025/commit/005c7653af1f6d9ba6873e99f1b4ca3611e9e05d))
+* Add new fields to tree map ([005c765](https://github.com/remi-denoyer/data-driven-hackathon-2025/commit/005c7653af1f6d9ba6873e99f1b4ca3611e9e05d))
+* fields in figures ([78d8d4b](https://github.com/remi-denoyer/data-driven-hackathon-2025/commit/78d8d4b967688c4c3eb00fae64220f326b603de9))
+* merge ([42c095d](https://github.com/remi-denoyer/data-driven-hackathon-2025/commit/42c095d94f080bd26cebc477a4e4139d7962409a))
+* merge 2 ([d90528a](https://github.com/remi-denoyer/data-driven-hackathon-2025/commit/d90528a12c782f82594d78ac71dd76805a680bae))
+* merge 3 ([5d754c8](https://github.com/remi-denoyer/data-driven-hackathon-2025/commit/5d754c877f2ae701f055bcb8a4bf90382561654f))
+* Merge conflicts ([b7ce361](https://github.com/remi-denoyer/data-driven-hackathon-2025/commit/b7ce361f98205bfc8b6533b26a173efb78dcfc3f))
+* runner with cd .. ([4a1dd67](https://github.com/remi-denoyer/data-driven-hackathon-2025/commit/4a1dd6794d0d3003601ac0224f7219d99fde89fa))
+
 ## 0.1.0 (2025-01-16)
 
 
