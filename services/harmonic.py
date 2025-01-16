@@ -32,7 +32,7 @@ def get_similar_companies(entity_urn: str, size: int = 5) -> List[str]:
         entity_urn: The URN of the company
         size: Number of similar companies to return (default: 30)
     Returns:
-        List of company URNs
+        List of unique company URNs, including the input URN
     """
     endpoint = f"{BASE_URL}/search/similar_companies/{entity_urn}"
     params = {"size": size}
@@ -41,7 +41,9 @@ def get_similar_companies(entity_urn: str, size: int = 5) -> List[str]:
     response.raise_for_status()
 
     data = response.json()
-    return data["results"]
+    # Create a set with the input URN and similar companies to ensure uniqueness
+    unique_urns = {entity_urn} | set(data["results"])
+    return list(unique_urns)
 
 
 def get_companies_batch(urns: List[str]) -> List[dict]:
