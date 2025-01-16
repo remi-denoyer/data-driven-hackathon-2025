@@ -95,7 +95,6 @@ python-dotenv==1.0.1
 python-json-logger==3.2.1
 pytz==2024.2
 PyYAML==6.0.2
-pyzmq==24.0.1
 referencing==0.35.1
 requests==2.32.3
 rfc3339-validator==0.1.4
