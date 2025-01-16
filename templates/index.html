@@ -11,7 +11,13 @@
 </head>
 <body>
   <header>
-    My header
+    <div class="logo-container">
+      <img
+        src="{{ url_for('static', filename='logo.png') }}"
+        alt="Darwin Logo"
+        class="logo"
+      />
+    </div>
     <form class="d-flex">
       <input
         class="form-control me-2"
@@ -24,14 +30,42 @@
   </header>
   <div class="container">
     <div class="sidebar">
-      <select id="metric-select" class="form-select" aria-label="Metric select">
-        <option value="headcount" {% if current_metric == 'headcount' %}selected{% endif %}>
-          Number of FTEs
-        </option>
-        <option value="funding_total" {% if current_metric == 'funding_total' %}selected{% endif %}>
-          Total funding
-        </option>
-      </select>
+      <div class="dropdown-section">
+        <select id="metric-select" class="form-select" aria-label="Metric select">
+          <option value="headcount" {% if current_metric == 'headcount' %}selected{% endif %}>
+            Number of FTEs
+          </option>
+          <option value="funding_total" {% if current_metric == 'funding_total' %}selected{% endif %}>
+            Total funding
+          </option>
+        </select>
+      </div>
+      <div class="section strengths">
+        <h5>Strengths</h5>
+        <ul>
+          <li>Analytical thinking</li>
+          <li>Problem-solving</li>
+          <li>Attention to detail</li>
+        </ul>
+      </div>
+
+      <div class="section weaknesses">
+        <h5>Weaknesses</h5>
+        <ul>
+          <li>Overcommitting</li>
+          <li>Impatience</li>
+          <li>Perfectionism</li>
+        </ul>
+      </div>
+
+      <div class="section icebreakers">
+        <h5>Icebreaker Questions</h5>
+        <ul>
+          <li>If you could travel anywhere, where would you go?</li>
+          <li>What’s your favorite hobby?</li>
+          <li>If you could have any superpower, what would it be?</li>
+        </ul>
+      </div>
     </div>
     <div class="plot-container">{{ map_html|safe }}</div>
   </div>
