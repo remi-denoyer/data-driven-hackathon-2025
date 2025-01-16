@@ -1,12 +1,54 @@
+/* General Styling */
+html,
 body {
-    background-color: black;
-    color: white;
-    font-family: Arial, sans-serif;
+  background-color: rgb(39, 41, 48); /* Dark background for a sleek look */
+  color: #ffffff; /* White text for good contrast */
+  font-family: "Arial", sans-serif; /* Clean, sans-serif font */
+  margin: 0; /* Remove default margins */
+  padding: 0; /* Remove default paddings */
+  height: 100%; /* Ensure full height for body and html */
+  overflow: hidden; /* Disable scrolling */
+  display: flex; /* Use flexbox for layout */
+  flex-direction: column; /* Stack elements vertically */
 }
+
+/* Header Styling */
+header {
+  background-color: rgba(55, 58, 69, 0.95); /* Slight transparency for depth */
+  color: #ffffff; /* Text color */
+  text-align: center; /* Center-align header content */
+  font-family: "Arial", sans-serif; /* Match the font style with body */
+  font-size: 1.5rem; /* Slightly larger font size for prominence */
+  font-weight: bold; /* Bold text for emphasis */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  height: 10vh; /* Header takes 20% of viewport height */
+  display: flex; /* Use flexbox for centering content */
+  align-items: center; /* Center content vertically */
+  justify-content: center; /* Center content horizontally */
+}
+
+/* Plot Container Styling */
 .plot-container {
-    margin: auto;
-    width: 80%;
+  height: 90vh; /* Take up 80% of viewport height */
+  margin: 0 auto; /* Center horizontally */
+  width: 100%; /* Constrain width to 80% of the screen */
+  max-width: 1200px; /* Add a max width for larger screens */
+  background-color: rgb(39, 41, 48); /* Match the header’s background */
+  border-radius: 8px; /* Rounded corners for a modern look */
+  overflow: hidden; /* Prevent overflow from breaking the design */
+  display: flex; /* Flexbox to center content */
+  align-items: center; /* Center content vertically */
+  justify-content: center; /* Center content horizontally */
 }
+
+/* Plotly Graph Styling */
 .plotly-graph {
-    border-radius: 8px;
+  border-radius: 8px; /* Maintain rounded corners */
+  overflow: hidden; /* Prevent overflow from breaking the design */
+  width: 100%; /* Make graph fill the container width */
+  height: 100%; /* Make graph fill the container height */
+}
+
+.modebar-group {
+  display: none !important; /* Hide modebar for cleaner look */
 }
