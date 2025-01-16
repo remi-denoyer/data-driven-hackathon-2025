@@ -1,62 +1,19 @@
 from dotenv import load_dotenv
 from flask import Flask, render_template
 import plotly.express as px
+import json
 
-# Data
-data = [
-    {
-        "category": "Technology",
-        "company": "TechCorp",
-        "employees": 500,
-        "growth": 0.15,
-    },
-    {
-        "category": "Technology",
-        "company": "CodeLabs",
-        "employees": 300,
-        "growth": -0.05,
-    },
-    {
-        "category": "Healthcare",
-        "company": "MediLife",
-        "employees": 400,
-        "growth": 0.25,
-    },
-    {
-        "category": "Healthcare",
-        "company": "BioHealth",
-        "employees": 200,
-        "growth": -0.10,
-    },
-    {
-        "category": "Finance",
-        "company": "FinTrust",
-        "employees": 350,
-        "growth": 0.05,
-    },
-    {
-        "category": "Finance",
-        "company": "SafeBank",
-        "employees": 150,
-        "growth": 0.10,
-    },
-    {
-        "category": "Environment",
-        "company": "GreenTech",
-        "employees": 450,
-        "growth": -0.20,
-    },
-    {
-        "category": "Environment",
-        "company": "EcoWorld",
-        "employees": 250,
-        "growth": 0.30,
-    },
-]
-
+# Load environment variables
 load_dotenv()
 
+# Initialize Flask app
 app = Flask(__name__)
+
+
+# Load data from external JSON file
+def load_data():
+    with open("data.json", "r") as file:
+        return json.load(file)
 
 
 @app.route("/")
@@ -66,6 +23,8 @@ def home():
 
 @app.route("/map")
 def display_map():
+    data = load_data()
+
     fig = px.treemap(
         data,
         path=["category", "company"],  # Hierarchical levels: category > company
@@ -80,15 +39,14 @@ def display_map():
         font=dict(
             family="Arial, sans-serif",  # Modern font
             size=20,  # Larger font size
-            color="white",  # Font color for dark background
         ),
         title=dict(
             font=dict(size=28),  # Larger title font
             x=0.5,  # Center the title
             xanchor="center",
         ),
-        paper_bgcolor="black",  # Dark background
-        plot_bgcolor="black",  # Dark plot background
+        paper_bgcolor="rgba(0,0,0,0)",  # Transparent background
+        plot_bgcolor="rgba(0,0,0,0)",  # Transparent plot background
         margin=dict(t=50, l=25, r=25, b=25),  # Reduce margins for better space usage
     )
 
@@ -98,14 +56,11 @@ def display_map():
         texttemplate=("%{label}<br>" "Size: %{value}"),
         textfont=dict(size=16),  # Larger text inside rectangles
         textposition="middle center",  # Center the text in each rectangle
-        marker=dict(
-            line=dict(color="black", width=1),  # Subtle borders for contrast
-            cornerradius=8,  # Slightly rounded corners
-        ),
+        marker=dict(line=dict(color="black", width=1)),  # Subtle borders for contrast
     )
 
     # Convert Plotly graph to HTML
-    map_html = fig.to_html(full_html=False)
+    map_html = fig.to_html(full_html=False, include_plotlyjs="cdn")
     return render_template("map.html", map_html=map_html)
 
 
