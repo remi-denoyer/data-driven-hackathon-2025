@@ -1,6 +1,6 @@
 import requests
 import os
-from similar_web import extract_domain
+from services.similar_web import extract_domain
 from dotenv import load_dotenv
 
 load_dotenv()

@@ -2,6 +2,7 @@ import requests
 import os
 from dotenv import load_dotenv
 from typing import List
+import json
 
 load_dotenv()
 
@@ -95,14 +96,12 @@ def list_enrich_similar_companies_from_domain(website_url: str, size: int = 30):
             "company_type": company.get("company_type"),
             "stage": company.get("stage"),
             "country": company.get("location", {}).get("country") if company.get("location") else None,
-            "funding": {
-                "funding_stage": company.get("funding", {}).get("funding_stage"),
-                "funding_total": company.get("funding", {}).get("funding_total"),
-                "last_funding_at": company.get("funding", {}).get("last_funding_at"),
-                "last_funding_total": company.get("funding", {}).get("last_funding_total"),
-                "last_funding_type": company.get("funding", {}).get("last_funding_type"),
-                "num_funding_rounds": company.get("funding", {}).get("num_funding_rounds"),
-            },
+            "funding_stage": company.get("funding", {}).get("funding_stage"),
+            "funding_total": company.get("funding", {}).get("funding_total"),
+            "last_funding_at": company.get("funding", {}).get("last_funding_at"),
+            "last_funding_total": company.get("funding", {}).get("last_funding_total"),
+            "last_funding_type": company.get("funding", {}).get("last_funding_type"),
+            "num_funding_rounds": company.get("funding", {}).get("num_funding_rounds"),
             "highlights": company.get("highlights"),
             "funding_attribute_null_status": company.get("funding_attribute_null_status"),
             "traction_metrics": simplified_traction_metrics,
