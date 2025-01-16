@@ -81,16 +81,17 @@ def list_companies(domain: str):
     # Join companies and analysis based on domain key
     enriched_companies = []
     companies_dict = {company["website"]: company for company in companies}
-    analysis_dict = {
-        company["website"]: company
-        for company in analysis["companies"]
-        if not company["outlier"]
-    }
+    analysis_dict = {company["website"]: company for company in analysis["companies"]}
 
-    # Merge data for matching domains
+    # Merge data for matching domains, excluding outliers
     for website in set(companies_dict.keys()) | set(analysis_dict.keys()):
         company_data = companies_dict.get(website, {})
         analysis_data = analysis_dict.get(website, {})
+
+        # Skip if company is marked as outlier
+        if analysis_data.get("outlier"):
+            continue
+
         merged = {**company_data, **analysis_data}
         enriched_companies.append(merged)
 
