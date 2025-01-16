@@ -57,23 +57,36 @@ Now, please respond to any inquiries or discussion points from your
 audience—investment experts—to illustrate your mastery of the VC landscape.
 """
 
+
 class CompanyType(str, Enum):
     INCUMBENT = "incumbent"
     SCALEUP = "scaleup"
     STARTUP = "startup"
     NICHE_PLAYER = "niche_player"
 
+
 class CompanyAnalysis(BaseModel):
     name: str
-    company_type: CompanyType
-    website: str = Field(description="Company domain, return exactly as given in the input")
-    outlier: bool = Field(description="Does the company belong to the market you are analyzing?")
-    reasoning: str = Field(description="Explanation for the company type classification")
+    segment: str
+    positive_analysis: str  # TBD
+    negative_analysis: str  # TBD
+    company_questions: str  # TBD
+    website: str = Field(
+        description="Company domain, return exactly as given in the input"
+    )
+    outlier: bool = Field(
+        description="Does the company belong to the market you are analyzing?"
+    )
+    reasoning: str = Field(
+        description="Explanation for the company type classification"
+    )
+
 
 class MarketAnalysis(BaseModel):
     market_name: str = Field(description="Generated market category name")
     market_description: str = Field(description="Brief description of the market")
     companies: List[CompanyAnalysis]
+
 
 def generate_gpt_response(prompt):
     try:
@@ -92,6 +105,7 @@ def generate_gpt_response(prompt):
     except Exception as e:
         print(f"Error in generating response: {e}")
         return None
+
 
 def generate_market_analysis(companies_data: List[Dict[str, Any]]) -> MarketAnalysis:
     """
@@ -141,7 +155,7 @@ def generate_market_analysis(companies_data: List[Dict[str, Any]]) -> MarketAnal
                 },
                 {"role": "user", "content": analysis_prompt},
             ],
-            response_format=MarketAnalysis
+            response_format=MarketAnalysis,
         )
 
         response_data = json.loads(completion.choices[0].message.content)
