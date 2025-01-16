@@ -119,6 +119,7 @@ def list_enrich_similar_companies_from_domain(website_url: str, size: int = 30):
                     "funding_attribute_null_status"
                 ),
                 "traction_metrics": simplified_traction_metrics,
+                "headcount_growth": 0.15,  # TBD
             }
         )
 

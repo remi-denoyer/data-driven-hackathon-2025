@@ -9,6 +9,18 @@ from services.utils import field_selector
 
 load_dotenv()
 
+FIELDS = [
+    "name",
+    "website",
+    "headcount",
+    "headcount_growth",
+    "segment",
+    "funding_total",
+    "positive_analysis",
+    "negative_analysis",
+    "company_question",
+]
+
 
 def get_competitors_enriched(domain: str):
     """
@@ -42,7 +54,7 @@ def get_competitors_enriched(domain: str):
     return data
 
 
-def list_companies(domain: str, fields: str = "name,company_type,funding_total"):
+def list_companies(domain: str):
     companies = get_competitors_enriched(domain)
     analysis = generate_market_analysis(
         field_selector(
@@ -82,6 +94,4 @@ def list_companies(domain: str, fields: str = "name,company_type,funding_total")
         merged = {**company_data, **analysis_data}
         enriched_companies.append(merged)
 
-    # Split fields string into list
-    fields_list = fields.split(",")
-    return field_selector(enriched_companies, fields_list)
+    return field_selector(enriched_companies, FIELDS)
