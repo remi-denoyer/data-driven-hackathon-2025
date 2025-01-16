@@ -3,7 +3,10 @@ import plotly.express as px
 
 def create_tree_map(data, selected_company, metric):
     # Filter out entries where the selected metric is <= 0
-    data = [entry for entry in data if entry.get(metric, 0) > 0]
+    data = [
+        entry for entry in data
+        if isinstance(entry.get(metric, 0), (int, float)) and entry.get(metric, 0) > 0
+    ]
 
     # Create the tree map
     fig = px.treemap(
