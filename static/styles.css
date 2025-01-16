@@ -175,8 +175,8 @@ header .d-flex {
 .loader {
   display: none; /* Hidden by default */
   position: absolute; /* Or fixed if you prefer */
-  top: 50%;
-  left: 50%;
+  top: 60%;
+  left: 60%;
   transform: translate(-50%, -50%);
   z-index: 9999; /* Above everything */
   align-items: center;
