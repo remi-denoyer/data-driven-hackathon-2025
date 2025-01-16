@@ -57,32 +57,31 @@ Now, please respond to any inquiries or discussion points from your
 audience—investment experts—to illustrate your mastery of the VC landscape.
 """
 
-
-class CompanyType(str, Enum):
-    INCUMBENT = "incumbent"
-    SCALEUP = "scaleup"
-    STARTUP = "startup"
-    NICHE_PLAYER = "niche_player"
-
-
 class CompanyAnalysis(BaseModel):
     name: str
-    segment: str
-    positive_analysis: str  # TBD
-    negative_analysis: str  # TBD
-    company_questions: str  # TBD
+    segment: str = Field(
+        description="Looking at all the companies in your input dataset, define four segments and select the one that best describes this company"
+    )
+    positive_analysis: str = Field(
+        description="Regarding the data you received on the company, what, if anything, seems especially positive?"
+    )
+    negative_analysis: str = Field(
+        description="Regarding the data you received on the company, what, if anything, seems especially negative?"
+    )
+    company_question: str = Field(
+        description="If you were to meet with this company, which would be the first question you would ask?"
+    )
     website: str = Field(
         description="Company domain, return exactly as given in the input"
     )
     outlier: bool = Field(
         description="Does the company belong to the market you are analyzing?"
     )
-    reasoning: str = Field(
-        description="Explanation for the company type classification"
-    )
-
 
 class MarketAnalysis(BaseModel):
+    """Your task is to analyze the input dataset and provide a market analysis.
+    Split the market into four segments, and assign each company to one of the segments.
+    In addition, analyze each company independently."""
     market_name: str = Field(description="Generated market category name")
     market_description: str = Field(description="Brief description of the market")
     companies: List[CompanyAnalysis]
@@ -121,27 +120,16 @@ def generate_market_analysis(companies_data: List[Dict[str, Any]]) -> MarketAnal
     analysis_prompt = f"""
     Analyze the following companies and provide insights in a structured format. Be aware, that
     some of the companies might be false positives, not related to the market you are analyzing.
+    Split the market into four segments, assign each company to one of the segments, and analyze
+    each company independently.
     Companies data: {json.dumps(companies_data, indent=2)}
 
     Please provide:
     1. A specific market category name that best describes the space these companies operate in
     2. A brief description of this market
-    3. For each company, evaluate whether they belong to the market you are analyzing
-    4. For each company, classify them as one of: incumbent, scaleup, startup, or niche_player
-    5. Include brief reasoning for each classification
-
-    Return the analysis in the following JSON format:
-    {{
-        "market_name": "string",
-        "market_description": "string",
-        "companies": [
-            {{
-                "name": "company name",
-                "company_type": "type",
-                "reasoning": "explanation"
-            }}
-        ]
-    }}
+    3. For each company, evaluate whether they belong to the market you are analyzing or not
+    4. For each company, provide a positive and a negative observation, and a question you would ask the company if you were to meet with them
+    5. For each company, assign the company to one of the four sements you defined
     """
 
     try:
