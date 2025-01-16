@@ -83,6 +83,11 @@ def list_enrich_similar_companies_from_domain(website_url: str, size: int = 30):
                         "latest_metric_value"
                     ]
 
+        # Get headcount growth from traction metrics
+        headcount_growth = None
+        if company.get("traction_metrics", {}).get("headcount", {}).get("365d_ago", {}).get("percent_change"):
+            headcount_growth = company["traction_metrics"]["external_headcount"]["365d_ago"]["percent_change"]
+
         formatted_companies.append(
             {
                 "entity_urn": company.get("entity_urn"),
@@ -119,7 +124,7 @@ def list_enrich_similar_companies_from_domain(website_url: str, size: int = 30):
                     "funding_attribute_null_status"
                 ),
                 "traction_metrics": simplified_traction_metrics,
-                "headcount_growth": 0.15,  # TBD
+                "headcount_growth": headcount_growth/100 if headcount_growth is not None else None,
             }
         )
 
