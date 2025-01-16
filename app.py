@@ -1,9 +1,10 @@
 from dotenv import load_dotenv
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 
 import json
 from services.companies import list_companies
 from services.figures import create_tree_map
+
 
 # Load environment variables
 load_dotenv()
@@ -24,10 +25,18 @@ def load_data(domain="perplexity.ai"):
 
 @app.route("/")
 def display_map():
+    # Get the metric from the URL, default to 'headcount'
+    metric = request.args.get("metric", "headcount")
+
+    # Load example data
     data = load_data_example()
-    fig = create_tree_map(data, "GOOGLE")  # TBD with selector
+
+    # Generate the tree map based on the selected metric
+    fig = create_tree_map(data, "GOOGLE", metric)
     map_html = fig.to_html(full_html=False, include_plotlyjs="cdn")
-    return render_template("index.html", map_html=map_html)
+
+    # Pass the selected metric to the template
+    return render_template("index.html", map_html=map_html, current_metric=metric)
 
 
 if __name__ == "__main__":

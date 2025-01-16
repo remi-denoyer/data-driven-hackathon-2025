@@ -30,16 +30,14 @@
   </header>
   <div class="container">
     <div class="sidebar">
-      <h5>Filters</h5>
       <div class="dropdown-section">
-        <select
-          id="select-menu"
-          class="form-select"
-          aria-label="Default select example"
-        >
-          <option selected>Select an option</option>
-          <option value="1">Option 1</option>
-          <option value="2">Option 2</option>
+        <select id="metric-select" class="form-select" aria-label="Metric select">
+          <option value="headcount" {% if current_metric == 'headcount' %}selected{% endif %}>
+            Number of FTEs
+          </option>
+          <option value="funding_total" {% if current_metric == 'funding_total' %}selected{% endif %}>
+            Total funding
+          </option>
         </select>
       </div>
       <div class="section strengths">
@@ -71,4 +69,10 @@
     </div>
     <div class="plot-container">{{ map_html|safe }}</div>
   </div>
+  <script>
+    document.getElementById("metric-select").addEventListener("change", function () {
+      const metric = this.value;
+      window.location.href = `/?metric=${metric}`;
+    });
+  </script>
 </body>
