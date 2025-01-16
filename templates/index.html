@@ -116,7 +116,7 @@
     const plotElement = document.querySelector(".plot-container");
 
     // Add click event listener to the treemap
-    plotElement.on("plotly_treemapclick", function (event) {
+    plotElement.addEventListener("plotly_treemapclick", function (event) {
       console.log("clicked on plot")
       const point = event.points[0];
       const company = point.label; // Get the selected company's name
