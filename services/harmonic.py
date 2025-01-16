@@ -25,7 +25,7 @@ def get_company_urn(website_url: str) -> str:
     return data["entity_urn"]
 
 
-def get_similar_companies(entity_urn: str, size: int = 30) -> List[str]:
+def get_similar_companies(entity_urn: str, size: int = 5) -> List[str]:
     """
     Get similar companies based on entity URN
     Args:

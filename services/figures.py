@@ -1,22 +1,22 @@
 import plotly.express as px
 
 
-def create_tree_map(data):
-
+def create_tree_map(data, selected_company):
     fig = px.treemap(
         data,
-        path=["category", "company"],  # Hierarchical levels: category > company
-        values="employees",  # Block size determined by headcount
-        color="growth",  # Color determined by growth
+        path=["segment", "name"],  # Hierarchical levels: segment > name
+        values="headcount",  # Block size determined by headcount
+        color="headcount_growth",  # Color determined by headcount growth
         color_continuous_scale=[
-            'rgb(226, 72, 66)',  # Red
-            'rgb(177, 73, 73)',
-            'rgb(130, 72, 79)',
-            'rgb(66, 69, 83)', # Grey
-            'rgb(70, 117, 81)',
-            'rgb(82, 156, 87)',
-            'rgb(102, 201, 104)' # Green
+            "rgb(226, 72, 66)",  # Red
+            "rgb(177, 73, 73)",
+            "rgb(130, 72, 79)",
+            "rgb(66, 69, 83)",  # Grey
+            "rgb(70, 117, 81)",
+            "rgb(82, 156, 87)",
+            "rgb(102, 201, 104)",  # Green
         ],
+        title=f"Competitive landscape of {selected_company}",
     )
 
     # Enhance layout and styling
@@ -37,7 +37,6 @@ def create_tree_map(data):
         width=1200,
     )
 
-
     # Update traces for centered text and percentages
     fig.update_traces(
         textinfo="label+text",  # Display company name and custom text
@@ -48,4 +47,3 @@ def create_tree_map(data):
     )
 
     return fig
-
