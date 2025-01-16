@@ -83,13 +83,13 @@ def list_companies(domain: str):
     companies_dict = {company["website"]: company for company in companies}
     analysis_dict = {company["website"]: company for company in analysis["companies"]}
 
-    # Merge data for matching domains, excluding outliers
+    # Merge data for matching domains, excluding outliers except input domain
     for website in set(companies_dict.keys()) | set(analysis_dict.keys()):
         company_data = companies_dict.get(website, {})
         analysis_data = analysis_dict.get(website, {})
 
-        # Skip if company is marked as outlier
-        if analysis_data.get("outlier"):
+        # Skip if company is marked as outlier and is not the input domain
+        if analysis_data.get("outlier") and website != domain:
             continue
 
         merged = {**company_data, **analysis_data}
