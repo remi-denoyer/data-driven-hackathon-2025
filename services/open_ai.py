@@ -66,7 +66,7 @@ class CompanyType(str, Enum):
 class CompanyAnalysis(BaseModel):
     name: str
     company_type: CompanyType
-    domain: str = Field(description="Company domain, return exactly as given in the input")
+    website: str = Field(description="Company domain, return exactly as given in the input")
     outlier: bool = Field(description="Does the company belong to the market you are analyzing?")
     reasoning: str = Field(description="Explanation for the company type classification")
 
@@ -145,7 +145,8 @@ def generate_market_analysis(companies_data: List[Dict[str, Any]]) -> MarketAnal
         )
 
         response_data = json.loads(completion.choices[0].message.content)
-        return MarketAnalysis.model_validate(response_data)
+        MarketAnalysis.model_validate(response_data)  # Validate but don't return model
+        return response_data
 
     except Exception as e:
         print(f"Error in generating market analysis: {e}")

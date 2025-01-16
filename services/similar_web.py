@@ -129,14 +129,22 @@ def get_traffic_sources_overview(domain):
 def get_similar_web_data(domain: str):
     website_data = get_website_data(domain)
 
-    data = {
-        "global_rank": website_data["global_rank"]["rank"],
-        "country_rank": website_data["country_rank"]["rank"],
-        "category_rank": website_data["category_rank"]["rank"],
-        "monthly_visits": website_data["engagments"]["visits"],
-        "total_country": website_data["total_countries"],
-        "direct_visits": website_data["traffic_sources"]["direct"]
-        * website_data["engagments"]["visits"],
-    }
+    data = {}
+
+    try:
+        data["global_rank"] = website_data.get("global_rank", {}).get("rank")
+        data["country_rank"] = website_data.get("country_rank", {}).get("rank")
+        data["category_rank"] = website_data.get("category_rank", {}).get("rank")
+        data["total_country"] = website_data.get("total_countries")
+
+        visits = website_data.get("engagments", {}).get("visits")
+        if visits is not None:
+            data["monthly_visits"] = visits
+            direct_traffic = website_data.get("traffic_sources", {}).get("direct")
+            if direct_traffic is not None:
+                data["direct_visits"] = direct_traffic * visits
+    except AttributeError:
+        # Handle case where website_data is None or not a dict
+        pass
 
     return data

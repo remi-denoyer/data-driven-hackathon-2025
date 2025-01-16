@@ -1,6 +1,8 @@
 from dotenv import load_dotenv
 from flask import Flask, render_template
 import plotly.express as px
+from services.get_competitors_enriched import get_competitors_enriched
+from services.open_ai import generate_market_analysis
 
 # Hardcoded data
 data = [
@@ -20,11 +22,57 @@ load_dotenv()
 
 app = Flask(__name__)
 
+def field_selector(data_array: list, fields: list) -> list:
+    """
+    Filter JSON objects to only include specified fields.
+
+    Args:
+        data_array (list): List of dictionaries containing data
+        fields (list): List of field names to keep
+
+    Returns:
+        list: List of filtered dictionaries containing only specified fields
+    """
+    return [{key: item[key] for key in fields if key in item} for item in data_array]
 
 @app.route("/")
 def home():
     return render_template("index.html")
 
+@app.route("/orchestrator/<domain>")
+@app.route("/orchestrator/<domain>/<fields>")
+def orchestrator(domain: str, fields: str = "name,company_type,funding_total"):
+    companies = get_competitors_enriched(domain)
+    analysis = generate_market_analysis(field_selector(companies, ["name",
+                                                                   "website",
+                                                                   "customer_type",
+                                                                   "description",
+                                                                   "external_description",
+                                                                   "funding_stage",
+                                                                   "funding_total",
+                                                                   "country",
+                                                                   "headcount",
+                                                                   "ownership_status",
+                                                                   "company_type",
+                                                                   "stage",
+                                                                   "highlights",
+                                                                   "traction_metrics"]))
+
+    # Join companies and analysis based on domain key
+    enriched_companies = []
+    companies_dict = {company["website"]: company for company in companies}
+    analysis_dict = {company["website"]: company for company in analysis["companies"] if not company["outlier"]}
+
+    # Merge data for matching domains
+    for website in set(companies_dict.keys()) | set(analysis_dict.keys()):
+        company_data = companies_dict.get(website, {})
+        analysis_data = analysis_dict.get(website, {})
+        merged = {**company_data, **analysis_data}
+        enriched_companies.append(merged)
+
+    # Split fields string into list
+    fields_list = fields.split(",")
+    return field_selector(enriched_companies, fields_list)
 
 @app.route("/map")
 def display_map():
