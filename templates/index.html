@@ -18,12 +18,14 @@
         class="logo"
       />
     </div>
-    <form class="d-flex">
+    <form class="d-flex" method="get" action="/">
       <input
         class="form-control me-2"
         type="search"
+        name="search"
         placeholder="Search"
         aria-label="Search"
+        value="{{ search_term or '' }}"
       />
       <button class="btn btn-outline-success" type="submit">Search</button>
     </form>

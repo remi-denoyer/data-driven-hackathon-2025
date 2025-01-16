@@ -41,7 +41,7 @@ def create_tree_map(data, selected_company, metric):
         autosize=True,  # Allow automatic resizing
         width=1200,
         coloraxis_colorbar=dict(
-            title="Headcount Growth (%)",  # Add scale name
+            title="Growth (%)",  # Add scale name
             tickformat=".0%",  # Format ticks as percentages
         ),
     )

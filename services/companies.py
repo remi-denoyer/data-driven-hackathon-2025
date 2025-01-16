@@ -55,10 +55,12 @@ def get_competitors_enriched(domain: str):
 
 
 def list_companies(domain: str):
+    print(f"Looking for company competitive landscape of {domain}")
     # Clean input domain by removing protocols, www and anything after first slash
     domain = domain.lower().replace('https://', '').replace('http://', '').replace('www.', '').split('/')[0]
 
     companies = get_competitors_enriched(domain)
+    print(f"got competitors")
     analysis = generate_market_analysis(
         field_selector(
             companies,
@@ -80,6 +82,7 @@ def list_companies(domain: str):
             ],
         )
     )
+    print(f"generated analysis")
 
     # Join companies and analysis based on domain key
     enriched_companies = []
@@ -98,4 +101,6 @@ def list_companies(domain: str):
         merged = {**company_data, **analysis_data}
         enriched_companies.append(merged)
 
-    return field_selector(enriched_companies, FIELDS)
+    data = field_selector(enriched_companies, FIELDS)
+    print(data)
+    return data

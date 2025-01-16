@@ -27,16 +27,22 @@ def load_data(domain="perplexity.ai"):
 def display_map():
     # Get the metric from the URL, default to 'headcount'
     metric = request.args.get("metric", "headcount")
+    search_term = request.args.get("search", None)
 
-    # Load example data
-    data = load_data_example()
+    # Load data based on the search term or use example data
+    if search_term:
+        data = load_data(domain=search_term)
+        display_name = search_term
+    else:
+        display_name = "Google"
+        data = load_data_example()
 
     # Generate the tree map based on the selected metric
-    fig = create_tree_map(data, "GOOGLE", metric)
+    fig = create_tree_map(data, display_name, metric)
     map_html = fig.to_html(full_html=False, include_plotlyjs="cdn")
 
     # Pass the selected metric to the template
-    return render_template("index.html", map_html=map_html, current_metric=metric)
+    return render_template("index.html", map_html=map_html, current_metric=metric, search_term=search_term)
 
 
 if __name__ == "__main__":
