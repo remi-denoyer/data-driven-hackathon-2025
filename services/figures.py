@@ -47,15 +47,5 @@ def create_tree_map(data):
         marker=dict(line=dict(color="black", width=1)),  # Subtle borders for contrast
     )
 
-    # Convert Plotly graph to HTML
-    fig = px.treemap(
-        data,
-        path=["category", "company"],  # Hierarchical levels: category > company
-        values="employees",  # Block size determined by headcount
-        color="growth",  # Color determined by growth
-        color_continuous_scale=["green", "yellow", "red"],  # Custom green-to-red scale
-        title="Company Dynamism Treemap",
-    )
-
     return fig
 
