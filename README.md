@@ -27,7 +27,7 @@ Before you begin, ensure you have the following installed on your computer:
    - During installation, make sure to check "Add Python to PATH"
 
 2. **API Keys**
-   You'll need the following API keys (all free to start):
+   You'll need the following API keys:
    - [OpenAI API Key](https://platform.openai.com/api-keys)
    - [PredictLeads API Key](https://predictleads.com/api-docs)
    - [SimilarWeb REST API Key](https://www.similarweb.com/corp/developer/apis/)
