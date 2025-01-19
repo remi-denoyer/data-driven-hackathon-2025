@@ -1,62 +1,31 @@
-/* General Styling */
+/* Global Styling */
 html,
 body {
-  background-color: rgb(39, 41, 48); /* Dark background for a sleek look */
-  color: #ffffff; /* White text for good contrast */
-  margin: 0; /* Remove default margins */
-  padding: 0; /* Remove default paddings */
-  height: 100%; /* Ensure full height for body and html */
+  background-color: #272930; /* Dark sleek background */
+  color: #fff !important; /* High contrast text */
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-family: "Lato", sans-serif !important;
   overflow: hidden; /* Disable scrolling */
-  display: flex; /* Use flexbox for layout */
-  flex-direction: column; /* Stack header and main content vertically */
-  font-family: "Lato", sans-serif;
-}
-
-/* General Font Styling */
-body {
-  font-family: "Lato", sans-serif;
-}
-
-/* Header Font Styling */
-header,
-.sidebar {
-  font-family: "Lato", sans-serif; /* Apply 'Times New Roman' to the header */
-  font-weight: 700; /* Bold font for emphasis */
-}
-
-/* Other Elements (Optional) */
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  font-family: "Lato", sans-serif;
-  font-weight: 700; /* Bold for headings */
-}
-
-p,
-input,
-button,
-select {
-  font-family: "Lato", sans-serif;
-  font-weight: 400; /* Regular font weight */
+  display: flex;
+  flex-direction: column;
 }
 
 /* Header Styling */
 header {
-  background-color: rgba(55, 58, 69, 0.95); /* Slight transparency for depth */
-  color: #ffffff; /* Text color */
-  text-align: center; /* Center-align header content */
-  font-size: 1.5rem; /* Slightly larger font size for prominence */
-  font-weight: bold; /* Bold text for emphasis */
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
-  height: 10vh; /* Header takes 10% of viewport height */
-  display: flex; /* Use flexbox for centering content */
-  align-items: center; /* Center content vertically */
-  justify-content: space-between; /* Space out header content */
-  padding: 0 20px; /* Add some padding for the content inside */
-  box-sizing: border-box; /* Include padding in height */
+  background-color: rgba(55, 58, 69, 0.95); /* Slight transparency */
+  color: #fff;
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: bold;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+  box-sizing: border-box;
 }
 
 .logo-container {
@@ -65,137 +34,111 @@ header {
 }
 
 .logo {
-  max-height: 70px; /* Adjust the size of the logo */
+  max-height: 70px;
   width: auto; /* Maintain aspect ratio */
 }
 
-header input,
 header .d-flex {
-  margin: 0 !important;
-  margin-block-end: 0 !important;
-  width: 70% !important;
+  width: 70%;
 }
 
-/* Main Content Styling */
-.container {
-  display: flex; /* Use flexbox for a two-column layout */
-  height: 90vh; /* Remaining height after header */
-  width: 100%; /* Full width */
-  box-sizing: border-box; /* Include padding/borders in dimensions */
-  margin: 0px !important;
-  padding: 0px !important;
-  max-width: 100% !important;
-  border-radius: 0px !important;
+/* Main Layout */
+.container_style {
+  display: flex;
+  height: calc(100% - 80px);
+  width: 100%;
+  box-sizing: border-box;
 }
 
 /* Sidebar Styling */
 .sidebar {
-  width: 20%; /* Sidebar takes 20% of the width */
-  background-color: rgba(55, 58, 69, 0.95); /* Match header’s background */
-  padding: 20px; /* Add padding inside the sidebar */
-  box-shadow: 2px 0 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
-  overflow-y: auto; /* Enable vertical scrolling if content overflows */
-  box-sizing: border-box; /* Include padding in width */
+  width: 300px;
+  background-color: rgba(55, 58, 69, 0.95);
+  color: #fff;
+  padding: 15px;
+  overflow-y: auto;
+  height: 100%;
 }
 
-.sidebar select {
-  width: 100%; /* Make select fields take full width */
-  margin-top: 20px; /* Add spacing between elements */
-}
-
-.sidebar {
-  width: 20%; /* 20% width for the sidebar */
-  background-color: rgba(55, 58, 69, 0.95); /* Sidebar background */
-  color: #ffffff; /* White text */
-  padding: 15px; /* Padding inside the sidebar */
-  overflow-y: auto; /* Scrollable content if needed */
-}
-
-.sidebar h4 {
+.sidebar h4,
+.sidebar h5 {
   margin-bottom: 15px;
-  font-size: 1.5rem;
-  font-family: "Lato", sans-serif; /* Match the font family */
-}
-
-.sidebar .dropdown-section {
-  margin-bottom: 20px;
-}
-
-.sidebar .section {
-  margin-bottom: 20px;
+  font-family: "Lato", sans-serif;
+  font-weight: bold;
 }
 
 .sidebar h5 {
   font-size: 1.25rem;
-  margin-bottom: 10px;
-  font-family: "Lato", sans-serif; /* Match the font family */
-  font-weight: bold;
 }
 
 .sidebar ul {
-  list-style-type: none; /* Remove bullet points */
-  padding-left: 0; /* Remove left padding */
+  list-style: none;
+  padding: 0;
 }
 
 .sidebar ul li {
   margin-bottom: 8px;
   font-size: 0.9rem;
-  font-family: "Lato", sans-serif;
 }
-.hidden {
-  display: none !important;
+
+.sidebar select,
+.sidebar .dropdown-section,
+.sidebar .section {
+  margin-bottom: 20px;
+  width: 100%;
 }
+
 /* Plot Container Styling */
-.plot-container {
-  width: 100%; /* Plot container takes remaining 80% of the width */
-  height: 100%; /* Full height of the container */
-  background-color: rgb(39, 41, 48); /* Match the sidebar’s background */
-  border-radius: 0px; /* Rounded corners for a modern look */
-  overflow: hidden; /* Prevent overflow from breaking the design */
-  display: flex; /* Flexbox to center content */
-  align-items: center; /* Center content vertically */
-  justify-content: center; /* Center content horizontally */
-  padding-top: 20px; /* Add padding inside the container */
-  box-sizing: border-box; /* Include padding in dimensions */
-}
 
-/* Plotly Graph Styling */
-.plotly-graph {
-  border-radius: 8px; /* Maintain rounded corners */
-  overflow: hidden; /* Prevent overflow from breaking the design */
-  width: 100%; /* Make graph fill the container width */
-  height: 100%; /* Make graph fill the container height */
+main {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #272930;
 }
-
-.modebar-group {
-  display: none !important; /* Hide modebar for cleaner look */
-}
-
-/* Existing style overrides */
-.loader {
-  display: none; /* Hidden by default */
-  position: absolute; /* Or fixed if you prefer */
-  top: 60%;
-  left: 60%;
-  transform: translate(-50%, -50%);
-  z-index: 9999; /* Above everything */
+main > div {
+  width: 100%;
+  display: flex;
   align-items: center;
   justify-content: center;
 }
 
-h1.plot-container {
-  color: white;
+.plotly-graph-div {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
 }
 
-/* Spinner color or size overrides */
+/* Loader Styling */
+.loader {
+  display: none; /* Default hidden */
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 9999;
+  background-color: #272930;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.pulse-logo {
+  height: 150px;
+  width: 150px;
+}
+
 .spinner-border {
   width: 3rem;
   height: 3rem;
   border-width: 0.3rem;
-  animation: spin 1s linear infinite; /* Add spin animation */
+  animation: spin 1s linear infinite;
 }
 
-/* Simple keyframes to rotate the spinner */
 @keyframes spin {
   0% {
     transform: rotate(0deg);
