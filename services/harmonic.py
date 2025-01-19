@@ -9,7 +9,7 @@ load_dotenv()
 
 BASE_URL = "https://api.harmonic.ai"
 
-HEADERS = {"apikey": os.environ.get("HARMONIC_API_KEY"], ""), "accept": "application/json"}
+HEADERS = {"apikey": os.environ.get("HARMONIC_API_KEY", ""), "accept": "application/json"}
 
 
 def get_company_urn(website_url: str) -> str:
@@ -66,7 +66,7 @@ def get_companies_batch(urns: List[str]) -> List[dict]:
 def list_enrich_similar_companies_from_domain(website_url: str, size: int = 15):
 
     # Without API access to harmonic, lets use example data
-    if os.environ.get("HARMONIC_API_KEY"], "") == "":
+    if os.environ.get("HARMONIC_API_KEY", "") == "":
         return fake_companies
 
     # Get company URN

@@ -1,3 +1,4 @@
 ipykernel
 ipython
 ipywidgets
+gunicorn
