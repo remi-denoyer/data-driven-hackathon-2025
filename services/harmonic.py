@@ -2,7 +2,8 @@ import requests
 import os
 from dotenv import load_dotenv
 from typing import List
-
+import json
+from data_harmonic import fake_companies
 load_dotenv()
 
 
@@ -63,6 +64,10 @@ def get_companies_batch(urns: List[str]) -> List[dict]:
 
 
 def list_enrich_similar_companies_from_domain(website_url: str, size: int = 15):
+
+    # Without API access to harmonic, lets use example data
+    if os.environ["HARMONIC_API_KEY"] == "":
+        return fake_companies
 
     # Get company URN
     company_urn = get_company_urn(website_url)
