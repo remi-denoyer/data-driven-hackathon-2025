@@ -96,19 +96,6 @@ def display_map():
         # all_companies=data
     )
 
-
-# Optional: If you want an endpoint for updating company data (used in plot clicks)
-# you can define it here. This is just an example of how it might look.
-@app.route("/update_data")
-def update_data():
-    company = request.args.get("company", None)
-    if not company:
-        return {"error": "No company specified"}, 400
-    # Do whatever logic needed to return updated info
-    # For now, just return a placeholder
-    return {"success": True, "company": company}
-
-
 if __name__ == "__main__":
     # Run in debug mode for development
     if os.environ.get("FLASK_ENV") == "development":
