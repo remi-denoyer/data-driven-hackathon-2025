@@ -65,6 +65,7 @@ def display_map():
 
     # If a company is selected, find its details in the data
     selected_company_data = None
+    print(selected_company)
     if selected_company and len(data) > 0:
         selected_company_data = next(
             (
@@ -74,6 +75,7 @@ def display_map():
             ),
             None,
         )
+        print(selected_company_data)
 
     # Generate the Plotly tree map figure based on the selected metric
     if len(data) > 0:
