@@ -110,4 +110,8 @@ def update_data():
 
 if __name__ == "__main__":
     # Run in debug mode for development
-    app.run(debug=True)
+    if os.environ.get("FLASK_ENV") == "development":
+        debug = True
+    else:
+        debug = False
+    app.run(debug=debug, port=os.environ.get("PORT", 5000))
