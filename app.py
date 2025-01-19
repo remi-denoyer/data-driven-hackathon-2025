@@ -1,6 +1,7 @@
 from dotenv import load_dotenv
 from flask import Flask, render_template, request, session
 import json
+import os
 
 # Your service imports
 from services.companies import list_companies

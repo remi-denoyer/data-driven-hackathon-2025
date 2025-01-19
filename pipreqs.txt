@@ -1,0 +1,6 @@
+openai==1.59.8
+plotly==5.24.1
+pydantic==2.10.5
+python-dotenv==1.0.1
+Requests==2.32.3
+flask
