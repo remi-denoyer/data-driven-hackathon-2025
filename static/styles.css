@@ -183,6 +183,10 @@ header .d-flex {
   justify-content: center;
 }
 
+h1.plot-container {
+  color: white;
+}
+
 /* Spinner color or size overrides */
 .spinner-border {
   width: 3rem;

@@ -95,9 +95,13 @@
     </div>
 
     <!-- Plot Container -->
-    <div class="plot-container" id="plot-container">
-      {{ map_html|safe }}
-    </div>
+     {% if map_html != None %}
+        <div class="plot-container" id="plot-container">
+          {{ map_html|safe }}
+        </div>
+      {% else %}
+        <h1 class="plot-container">Please search something...👆</h1>
+      {% endif %}
   </div>
 
   <script>
@@ -119,22 +123,21 @@
       const metric = this.value;
       showLoader();
 
-      // If you want truly immediate local re-rendering,
-      // you must have the data in JS and do a Plotly update.
-      // For example:
-      //
-      //   updateTreemap(metric);  // Your custom function
-      //
-      // Here we simply simulate a quick update:
-      setTimeout(() => {
-        console.log(`Metric changed to: ${metric}, treemap updated instantly!`);
-        hideLoader();
-      }, 700); // simulate slight delay for the loader
+      // Update the URL query parameter without reloading
+      const urlParams = new URLSearchParams(window.location.search);
+      urlParams.set("metric", metric);
+      const newUrl = `${window.location.pathname}?${urlParams.toString()}`;
+      window.history.replaceState({}, "", newUrl);
+
+      // Redirect to the new URL, allowing the controller to handle the request
+      window.location.href = newUrl;
+
     });
 
     // On treemap click, we call /update_data to load details for the side panel (optional).
     // This fetch is minimal and does NOT reload the page or re-fetch the main data.
     const plotElement = document.querySelector(".plot-container .js-plotly-plot");
+    console.log(plotElement)
     if (plotElement) {
       plotElement.on("plotly_treemapclick", function (event) {
         const point = event.points[0];
