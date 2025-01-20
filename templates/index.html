@@ -140,6 +140,7 @@
       <!-- Loader (with new animation) -->
       <div class="loader" id="loader" style="display: none;">
         <img src="static/logo.png" alt="Logo" class="pulse-logo animate__animated animate__infinite animate__pulse">
+        <p id="loader-message" style="margin-top: 20px; font-size: 1.2rem; color: white;"></p>
       </div>
 
 
@@ -154,10 +155,38 @@
   </div>
 
   <script>
+      // Array of funny loading messages
+    const messages = [
+      "Crunching the numbers...",
+      "Mining the data mines...",
+      "Making the magic happen...",
+      "Asking the AI to hurry up...",
+      "Taming the data dragons...",
+      "Generating insights... and puns.",
+      "Running a marathon of code...",
+      "Giving it 110%... literally.",
+      "Turning coffee into code...",
+      "Loading... almost as fast as light."
+    ];
+
+    let messageIndex = 0;
+
+    // Function to display a new random message
+    function rotateMessages() {
+      console.log("rotateMessages")
+      const loaderMessage = document.getElementById("loader-message");
+      if (loaderMessage) {
+        loaderMessage.textContent = messages[messageIndex];
+        messageIndex = (messageIndex + 1) % messages.length; // Loop through messages
+      }
+    }
+
     // Show the loader, hide the treemap
     function showLoader() {
+      console.log("showLoader")
       document.getElementById("loader").style.display = "flex";
-      document.getElementById("plot-container").classList.add("hidden");
+      rotateMessages(); // Display the first message immediately
+      window.loaderInterval = setInterval(rotateMessages, 3000); // Change message every 3 seconds
     }
     // On treemap click, we call /update_data to load details for the side panel (optional).
     const plotElement = document.querySelector(".plotly-graph-div");
