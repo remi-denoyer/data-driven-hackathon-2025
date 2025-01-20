@@ -45,6 +45,7 @@ header .d-flex {
 /* Main Layout */
 .container_style {
   display: flex;
+  flex-direction: row;
   height: calc(100% - 80px);
   width: 100%;
   box-sizing: border-box;
@@ -89,9 +90,8 @@ header .d-flex {
 }
 
 /* Plot Container Styling */
-
 main {
-  width: 100%;
+  width: calc(100% - 300px); /* Account for sidebar */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -107,8 +107,6 @@ main > div {
 .plotly-graph-div {
   width: 100%;
   display: flex;
-  align-items: center;
-  justify-content: center;
   box-sizing: border-box;
 }
 
@@ -145,5 +143,91 @@ main > div {
   }
   100% {
     transform: rotate(360deg);
+  }
+}
+
+/* Responsive Adjustments */
+@media screen and (max-width: 768px) {
+  /* Sidebar stacks vertically on smaller screens */
+  .container_style {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    width: 100%;
+    height: auto;
+  }
+
+  main {
+    width: 100%;
+    height: auto;
+    flex: 1;
+  }
+
+  header {
+    flex-direction: column;
+    text-align: center;
+    height: auto;
+    padding: 15px;
+  }
+
+  header .d-flex {
+    width: 100%;
+  }
+
+  .logo-container {
+    justify-content: center;
+    margin-bottom: 10px;
+  }
+
+  .logo {
+    max-height: 50px;
+  }
+
+  .container_style {
+    flex-direction: column !important; /* Sidebar on top for smaller screens */
+  }
+
+  .sidebar {
+    width: 100%; /* Full width on mobile */
+    height: auto; /* Adjust height automatically */
+  }
+
+  main {
+    width: 100%;
+    height: auto;
+  }
+
+  .plotly-graph-div {
+    width: 100%; /* Full width on mobile */
+    height: auto; /* Adjust height automatically */
+  }
+}
+
+@media screen and (max-width: 480px) {
+  /* Adjust fonts and paddings for extra small screens */
+  header {
+    font-size: 1.2rem;
+    padding: 10px;
+  }
+
+  .sidebar h4,
+  .sidebar h5 {
+    font-size: 1rem;
+  }
+
+  .sidebar ul li {
+    font-size: 0.8rem;
+  }
+
+  .pulse-logo {
+    height: 100px;
+    width: 100px;
+  }
+
+  .spinner-border {
+    width: 2rem;
+    height: 2rem;
+    border-width: 0.2rem;
   }
 }

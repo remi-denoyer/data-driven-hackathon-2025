@@ -42,7 +42,6 @@ def create_tree_map(data, selected_company, metric):
         plot_bgcolor="rgba(0,0,0,0)",  # Transparent plot background
         margin=dict(t=50, l=25, r=25, b=25),  # Reduce margins for better space usage
         autosize=True,  # Allow automatic resizing
-        width=1200,
         coloraxis_colorbar=dict(
             title="Growth (%)",  # Add scale name
             tickformat=".0%",  # Format ticks as percentages
@@ -52,7 +51,7 @@ def create_tree_map(data, selected_company, metric):
     # Update traces for centered text and percentages
     fig.update_traces(
         textinfo="label+text",  # Display company name and custom text
-        texttemplate="%{label}<br>Size: %{value}",  # Format the text
+        texttemplate="%{label}<br>%{metric}: %{value}",  # Format the text
         textfont=dict(size=16),  # General text font size inside rectangles
         textposition="middle center",  # Center the text in each rectangle
         marker=dict(line=dict(color="black", width=1)),  # Subtle borders for contrast
