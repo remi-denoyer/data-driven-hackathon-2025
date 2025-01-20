@@ -34,7 +34,7 @@ def create_tree_map(data, selected_company, metric):
             color="white",
         ),
         title=dict(
-            font=dict(size=28),  # Larger title font
+            font=dict(size=18),  # Larger title font
             x=0.5,  # Center the title
             xanchor="center",
         ),
@@ -49,30 +49,17 @@ def create_tree_map(data, selected_company, metric):
     )
 
     # Update traces for centered text and percentages
+    metric_names = {
+        "headcount": "Employees",
+        "funding_total": "€"
+    }
+    texttemplate = "%{label}<br>%{value} " + metric_names[metric]
     fig.update_traces(
         textinfo="label+text",  # Display company name and custom text
-        texttemplate="%{label}<br>%{metric}: %{value}",  # Format the text
+        texttemplate=texttemplate,  # Format the text
         textfont=dict(size=16),  # General text font size inside rectangles
         textposition="middle center",  # Center the text in each rectangle
         marker=dict(line=dict(color="black", width=1)),  # Subtle borders for contrast
-    )
-
-    # Customize top-level category styling
-    fig.update_traces(
-        selector=dict(path_depth=0),  # Style only the top-level categories
-        textfont=dict(
-            size=18,  # Larger font size for categories
-            weight="bold",  # Bold font for categories
-        ),
-    )
-
-    # Optional: Customize sub-level styling (if needed)
-    fig.update_traces(
-        selector=dict(path_depth=1),  # Style subcategories
-        textfont=dict(
-            size=14,  # Slightly smaller font for subcategories
-            color="lightgray",
-        ),
     )
 
     return fig

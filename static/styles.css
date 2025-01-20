@@ -34,7 +34,7 @@ header {
 }
 
 .logo {
-  max-height: 70px;
+  height: 70px;
   width: auto; /* Maintain aspect ratio */
 }
 
@@ -180,10 +180,6 @@ main > div {
     margin-bottom: 10px;
   }
 
-  .logo {
-    max-height: 50px;
-  }
-
   .container_style {
     flex-direction: column !important; /* Sidebar on top for smaller screens */
   }
@@ -208,7 +204,12 @@ main > div {
   /* Adjust fonts and paddings for extra small screens */
   header {
     font-size: 1.2rem;
-    padding: 10px;
+    padding: 0 15px;
+  }
+
+  img.logo {
+    height: 100px !important;
+    margin: 15px;
   }
 
   .sidebar h4,

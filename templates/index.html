@@ -1,9 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <!-- Charset and Title -->
   <meta charset="UTF-8" />
   <title>Darwin</title>
-  <meta name="description" content="Darwin - The first VC companion app that visualizes a company's competitive landscape with ease."/>
+
+  <!-- SEO Meta Tags -->
+  <meta name="description" content="Discover how Darwin helps VCs analyze and visualize a company's competitive landscape effortlessly." />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow" /> <!-- Prevents search engine indexing -->
+
+  <!-- Author and Language -->
+  <meta name="author" content="Darwin Team" />
+  <meta name="language" content="en-US" />
+
+  <!-- Social Media Meta Tags (Open Graph for Facebook/LinkedIn) -->
+  <meta property="og:title" content="Darwin - Visualize Competitive Landscapes" />
+  <meta property="og:description" content="Discover how Darwin helps VCs analyze and visualize a company's competitive landscape effortlessly." />
+  <meta property="og:image" content="https://darwin.pierregallet.com/cover.png" />
+  <meta property="og:url" content="https://darwin.pierregallet.com" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Darwin" />
+
+  <!-- Social Media Meta Tags (Twitter Cards) -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Darwin - Visualize Competitive Landscapes" />
+  <meta name="twitter:description" content="The ultimate VC companion app for competitive landscape visualization." />
+  <meta name="twitter:image" content="https://darwin.pierregallet.com/cover.png" />
+  <meta name="twitter:creator" content="@darwinapp" />
+
+  <!-- Theme Color for Mobile Browsers -->
+  <meta name="theme-color" content="#272930" />
+
+  <!-- Favicon -->
+  <link rel="icon" href="/static/favicon.ico" type="image/x-icon" />
+
+
   <link
     rel="stylesheet"
     href="{{ url_for('static', filename='styles.css') }}"
